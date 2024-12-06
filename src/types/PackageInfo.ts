@@ -1,6 +1,7 @@
 export interface PackageInfo {
   name: string;
   version: string;
+  registry: string;
 }
 
 export interface Dependencies {

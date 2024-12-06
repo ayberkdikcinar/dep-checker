@@ -23,20 +23,27 @@ class FileParserService {
     const parsedJson = JSON.parse(content) as ComposerJSON;
     const dependencies = parsedJson.require;
     const devDependencies = parsedJson['require-dev'];
-    return this.extractPackages({ ...dependencies, ...devDependencies });
+    return this.extractPackages(
+      { ...dependencies, ...devDependencies },
+      'packagist',
+    );
   }
 
   private parsePackageJson(content: string): PackageInfo[] {
     const parsedJson = JSON.parse(content) as PackageJSON;
     const { dependencies, devDependencies } = parsedJson;
-    return this.extractPackages({ ...dependencies, ...devDependencies });
+    return this.extractPackages({ ...dependencies, ...devDependencies }, 'npm');
   }
-  private extractPackages(dependencies: Dependencies): PackageInfo[] {
+  private extractPackages(
+    dependencies: Dependencies,
+    registry: string,
+  ): PackageInfo[] {
     const allPackages = [...Object.entries(dependencies)];
 
     return allPackages.map(([name, version]) => ({
       name,
-      version,
+      version: version.substring(1, version.length),
+      registry,
     }));
   }
 }

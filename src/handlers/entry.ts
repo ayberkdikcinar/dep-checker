@@ -1,39 +1,24 @@
 import { UrlInfo } from '../types/UrlInfo';
-import { ApiServiceFactory } from '../lib/apis/apiFactory';
-import { FilesToLook } from '../lib/constants/endpoints';
-import { FileParserService } from '../services/fileParser';
-import { PackageInfo } from '../types/PackageInfo';
-import { logger } from '../lib/config/logger';
 import { BadRequestError } from '../errors/badRequestError';
 import { ErrorMessage } from '../lib/constants/errorMessage';
+
+import { DeprecatedPackageFinder } from '../services/deprecatedPackageFinder';
+import { ApiServiceFactory } from '../lib/apis/apiFactory';
 async function createEntry(urlInfo: UrlInfo) {
   const apiService = ApiServiceFactory.getApiService(urlInfo.platform);
-  const results = await Promise.allSettled(
-    FilesToLook.map((file) =>
-      apiService.fetchFileContent({
-        owner: urlInfo.owner,
-        repo: urlInfo.repo,
-        filePath: file,
-      }),
-    ),
-  );
-  logger.info(results);
-  const fileResponses = results
-    .filter((result) => result.status === 'fulfilled')
-    .map((res) => res.value);
-  if (fileResponses.length === 0) {
-    throw new BadRequestError(ErrorMessage.TARGET_FILE_NOT_FOUND);
-  }
-  const fileParserService = new FileParserService();
-  let packageList: PackageInfo[] = [];
-  for (const file of fileResponses) {
-    const parsed = fileParserService.parseFileContent(file);
-    if (parsed) {
-      packageList = [...packageList, ...parsed];
-    }
-  }
+  if (!apiService) throw new BadRequestError(ErrorMessage.INVALID_PLATFORM);
 
-  return packageList;
+  const deprecatedPackageFinder = new DeprecatedPackageFinder();
+  const files = await deprecatedPackageFinder.readFileFromRepository(
+    apiService,
+    urlInfo,
+  );
+
+  if (!files.length)
+    throw new BadRequestError(ErrorMessage.TARGET_FILE_NOT_FOUND);
+
+  const packages = await deprecatedPackageFinder.parseFile(files);
+  return await deprecatedPackageFinder.checkPackageVersions(packages);
 }
 
 export { createEntry };
