@@ -1,7 +1,9 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { body } from 'express-validator';
 import { createEntry } from '../handlers/entry';
 import { extractInfoFromUrl } from '../lib/utils/parsers';
+import { BadRequestError } from '../errors/badRequestError';
+import { ErrorMessage } from '../lib/constants/errorMessage';
 const router = Router();
 
 router.post(
@@ -23,20 +25,23 @@ router.post(
         return true;
       }),
   ],
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     /* const entry: Entry = {
     registry: req.body.registry,
     email: req.body.email,
   };*/
-    const { repositoryUrl, emails } = req.body;
-    const info = extractInfoFromUrl(repositoryUrl);
-    if (!info) {
-      res.send('url is not in the correct format');
+    try {
+      const { repositoryUrl, emails } = req.body;
+      const info = extractInfoFromUrl(repositoryUrl);
+      if (!info) {
+        throw new BadRequestError(ErrorMessage.INVALID_URL);
+      }
+      const response = await createEntry(info);
+      res.json(response);
       return;
+    } catch (error) {
+      next(error);
     }
-    const response = await createEntry(info);
-    res.json(response);
-    return;
   },
 );
 

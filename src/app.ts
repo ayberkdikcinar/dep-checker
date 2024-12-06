@@ -3,6 +3,7 @@ import { json } from 'body-parser';
 import expressWinston from 'express-winston';
 import { entryRouter } from './routes/entry';
 import { logger } from './lib/config/logger';
+import { errorHandler } from './middlewares/errorHandler';
 const app = express();
 
 app.use(
@@ -25,5 +26,7 @@ app.get('/', (req: Request, res: Response) => {
 app.all('*', (req: Request, res: Response) => {
   throw new Error('Route not found');
 });
+
+app.use(errorHandler);
 
 export { app };

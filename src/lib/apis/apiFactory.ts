@@ -2,6 +2,7 @@ import { GitHubApiService } from './github';
 import { GitLabApiService } from './gitlab';
 import { ErrorMessage } from '../constants/errorMessage';
 import { ApiService } from '../types';
+import { BadRequestError } from '../../errors/badRequestError';
 export class ApiServiceFactory {
   static getApiService(platform: string, token?: string): ApiService {
     if (platform === 'github.com') {
@@ -10,6 +11,6 @@ export class ApiServiceFactory {
     if (platform === 'gitlab.com') {
       return new GitLabApiService(token);
     }
-    throw new Error(ErrorMessage.INVALID_PLATFORM);
+    throw new BadRequestError(ErrorMessage.INVALID_PLATFORM);
   }
 }

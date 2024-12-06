@@ -1,19 +1,11 @@
 import { UrlInfo } from '../../types/UrlInfo';
 
 function extractInfoFromUrl(url: string): UrlInfo | null {
-  const sanitizedUrl = url
-    .replace('https://', '')
-    .replace(/\/+/g, '/')
-    .replace(/\/$/, '');
-
-  const parts = sanitizedUrl.split('/');
-  if (parts.length < 3) {
-    return null;
-  }
-  const repo = parts[parts.length - 1];
-  const owner = parts[parts.length - 2];
-  const platform = parts[parts.length - 3];
-  return { platform, owner, repo };
+  const sanitizedUrl = url.replace(/\/$/, '');
+  const regex = /^(https:\/\/(?:www\.)?([^/]+)\/([^/]+)\/([^/]+))$/;
+  const match = sanitizedUrl.match(regex);
+  if (!match) return null;
+  return { platform: match[2], owner: match[3], repo: match[4] };
 }
 
 export { extractInfoFromUrl };

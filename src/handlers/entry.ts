@@ -4,6 +4,8 @@ import { FilesToLook } from '../lib/constants/endpoints';
 import { FileParserService } from '../services/fileParser';
 import { PackageInfo } from '../types/PackageInfo';
 import { logger } from '../lib/config/logger';
+import { BadRequestError } from '../errors/badRequestError';
+import { ErrorMessage } from '../lib/constants/errorMessage';
 async function createEntry(urlInfo: UrlInfo) {
   const apiService = ApiServiceFactory.getApiService(urlInfo.platform);
   const results = await Promise.allSettled(
@@ -19,7 +21,9 @@ async function createEntry(urlInfo: UrlInfo) {
   const fileResponses = results
     .filter((result) => result.status === 'fulfilled')
     .map((res) => res.value);
-
+  if (fileResponses.length === 0) {
+    throw new BadRequestError(ErrorMessage.TARGET_FILE_NOT_FOUND);
+  }
   const fileParserService = new FileParserService();
   let packageList: PackageInfo[] = [];
   for (const file of fileResponses) {
