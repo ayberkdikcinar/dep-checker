@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import { RepoFile } from '../types/RepoFile';
-export interface ApiService {
+export interface PlatformApi {
   baseApiUrl: string;
   client: AxiosInstance;
   fetchFileContent: (attrs: FileRequestAttrs) => Promise<RepoFile>;
@@ -11,4 +11,25 @@ export interface FileRequestAttrs {
   repo: string;
   filePath: string;
   branch?: string;
+}
+
+export interface PackagistRelease {
+  version_normalized: string;
+  version: string;
+}
+
+export interface PackageResponse {
+  name: string;
+  versions: Versions;
+}
+
+export interface Versions {
+  [version: string]: PackagistRelease;
+}
+export interface PackagistPackageResponse {
+  package: PackageResponse;
+}
+
+export interface NpmPackageResponse extends PackageResponse {
+  ['dist-tags']: { [key: string]: string };
 }

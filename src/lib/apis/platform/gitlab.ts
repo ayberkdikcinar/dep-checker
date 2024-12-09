@@ -1,10 +1,10 @@
 import axios, { AxiosInstance } from 'axios';
-import { BaseUrl } from '../constants/endpoints';
-import { RepoFile } from '../../types/RepoFile';
-import { FileRequestAttrs, ApiService } from '../types';
+import { BaseUrl } from '../../constants/endpoints';
+import { RepoFile } from '../../../types/RepoFile';
+import { FileRequestAttrs, PlatformApi } from '../../types';
 import { AxiosError } from 'axios';
 
-export class GitLabApiService implements ApiService {
+export class GitLabPlatformApi implements PlatformApi {
   readonly baseApiUrl: string = BaseUrl.gitlabApi;
   readonly client: AxiosInstance;
 

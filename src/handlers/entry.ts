@@ -3,9 +3,9 @@ import { BadRequestError } from '../errors/badRequestError';
 import { ErrorMessage } from '../lib/constants/errorMessage';
 
 import { DeprecatedPackageFinder } from '../services/deprecatedPackageFinder';
-import { ApiServiceFactory } from '../lib/apis/apiFactory';
+import { PlatformFactory } from '../lib/apis/platform/platformFactory';
 async function createEntry(urlInfo: UrlInfo) {
-  const apiService = ApiServiceFactory.getApiService(urlInfo.platform);
+  const apiService = PlatformFactory.getPlatformApi(urlInfo.platform);
   if (!apiService) throw new BadRequestError(ErrorMessage.INVALID_PLATFORM);
 
   const deprecatedPackageFinder = new DeprecatedPackageFinder();

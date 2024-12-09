@@ -1,7 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { body } from 'express-validator';
 import { createEntry } from '../handlers/entry';
-import { extractInfoFromUrl } from '../lib/utils/parsers';
+import { extractInfoFromUrl } from '../lib/utils/extractUrl';
 import { BadRequestError } from '../errors/badRequestError';
 import { ErrorMessage } from '../lib/constants/errorMessage';
 const router = Router();
@@ -30,6 +30,7 @@ router.post(
     registry: req.body.registry,
     email: req.body.email,
   };*/
+    //
     try {
       const { repositoryUrl, emails } = req.body;
       const info = extractInfoFromUrl(repositoryUrl);

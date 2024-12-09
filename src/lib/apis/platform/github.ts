@@ -1,9 +1,9 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
-import { BaseUrl } from '../constants/endpoints';
-import { RepoFile } from '../../types/RepoFile';
-import { FileRequestAttrs, ApiService } from '../types';
+import { BaseUrl } from '../../constants/endpoints';
+import { RepoFile } from '../../../types/RepoFile';
+import { FileRequestAttrs, PlatformApi } from '../../types';
 
-export class GitHubApiService implements ApiService {
+export class GitHubPlatformApi implements PlatformApi {
   readonly baseApiUrl: string = BaseUrl.githubApi;
   readonly client: AxiosInstance;
 
