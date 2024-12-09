@@ -4,12 +4,12 @@ import { RepoFile } from '../types/RepoFile';
 import { FileParserService } from './fileParser';
 import { PackageInfo } from '../types/PackageInfo';
 import { VersionCheckerService } from './versionChecker';
-import { ApiService } from '../lib/types';
+import { PlatformApi } from '../lib/types';
 export class DeprecatedPackageFinder {
-  async readFileFromRepository(apiService: ApiService, urlInfo: UrlInfo) {
+  async readFileFromRepository(platformApi: PlatformApi, urlInfo: UrlInfo) {
     const results = await Promise.allSettled(
       FilesToLook.map((file) =>
-        apiService.fetchFileContent({
+        platformApi.fetchFileContent({
           owner: urlInfo.owner,
           repo: urlInfo.repo,
           filePath: file,

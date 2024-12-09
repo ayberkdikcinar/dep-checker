@@ -5,6 +5,7 @@ import {
   PackageInfo,
   PackageJSON,
 } from '../types/PackageInfo';
+import { sanitizeVersion } from '../lib/utils/sanitizeVersion';
 class FileParserService {
   parseFileContent(file: RepoFile): PackageInfo[] | null {
     const decodedContent = Buffer.from(file.content, 'base64').toString();
@@ -42,7 +43,7 @@ class FileParserService {
 
     return allPackages.map(([name, version]) => ({
       name,
-      version: version.substring(1, version.length),
+      version: sanitizeVersion(version),
       registry,
     }));
   }
