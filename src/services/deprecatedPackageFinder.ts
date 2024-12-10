@@ -38,7 +38,7 @@ export class DeprecatedPackageFinder {
   async checkPackageVersions(packageList: PackageInfo[]) {
     const versionCheckService = new VersionCheckerService();
     const respOutdated =
-      await versionCheckService.checkAllPackages(packageList);
+      await versionCheckService.getOutdatedPackages(packageList);
     return respOutdated;
   }
 }
