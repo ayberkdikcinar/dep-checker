@@ -1,5 +1,4 @@
 import { app } from './app';
-
 const start = async () => {
   try {
     app.listen(8000, () => {

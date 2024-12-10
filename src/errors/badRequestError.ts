@@ -4,7 +4,7 @@ export class BadRequestError extends CustomError {
   statusCode = 400;
 
   constructor(public message: string) {
-    super('Invalid request parameters.');
+    super('Invalid data.');
   }
 
   serializeErrors = () => {

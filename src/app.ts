@@ -1,9 +1,13 @@
 import express, { Request, Response } from 'express';
 import { json } from 'body-parser';
 import expressWinston from 'express-winston';
-import { entryRouter } from './routes/entry';
+import { entryRouter } from './routes/entryRouter';
 import { logger } from './lib/config/logger';
 import { errorHandler } from './middlewares/errorHandler';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const app = express();
 
 app.use(

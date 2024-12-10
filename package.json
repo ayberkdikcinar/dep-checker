@@ -31,11 +31,17 @@
   },
   "dependencies": {
     "@types/express": "^5.0.0",
+    "@types/nodemailer": "^6.4.17",
     "axios": "^1.7.9",
     "axios-mock-adapter": "^2.1.0",
+    "bull": "^4.16.4",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "express-validator": "^7.2.0",
     "express-winston": "^4.2.0",
+    "lowdb": "^7.0.1",
+    "node-mailer": "^0.1.1",
     "winston": "^3.17.0"
   }
 }
