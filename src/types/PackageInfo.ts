@@ -17,3 +17,13 @@ export interface ComposerJSON {
   require: Dependencies;
   'require-dev': Dependencies;
 }
+
+export interface VersionCheckResult {
+  upToDate: boolean;
+  latestVersion: string;
+}
+
+export interface DetailedVersionCheckResult extends VersionCheckResult {
+  name: string;
+  version: string;
+}
