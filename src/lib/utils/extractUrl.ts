@@ -1,4 +1,4 @@
-import { UrlInfo } from '../../types/UrlInfo';
+import { UrlInfo } from '../../types';
 
 function extractInfoFromUrl(url: string): UrlInfo | null {
   const sanitizedUrl = url.replace(/\/$/, '');

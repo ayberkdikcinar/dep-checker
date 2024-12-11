@@ -1,6 +1,6 @@
 import { BaseUrl } from '../../constants/endpoints';
 import {
-  PackagistRelease,
+  PackageRelease,
   PackagistPackageResponse,
   Versions,
 } from '../../types';
@@ -37,7 +37,7 @@ export class PackagistRegistry extends BaseRegistry {
     if (Object.keys(versions).length === 0) return 'unknown';
     const latestVersion = Object.values(versions)
       .filter(
-        (release) => !this.isDevelopmentalRelease(release.version_normalized),
+        (release) => !this.isDevelopmentalRelease(release.version_normalized!),
       )
       .reduce(this.findLatestVersion, null);
 
@@ -45,12 +45,13 @@ export class PackagistRegistry extends BaseRegistry {
   }
 
   private findLatestVersion = (
-    latest: PackagistRelease | null,
-    current: PackagistRelease,
-  ): PackagistRelease => {
+    latest: PackageRelease | null,
+    current: PackageRelease,
+  ): PackageRelease => {
     if (
       !latest ||
-      versionCompare(current.version_normalized, latest.version_normalized) > 0
+      versionCompare(current.version_normalized!, latest.version_normalized!) >
+        0
     ) {
       return current;
     }

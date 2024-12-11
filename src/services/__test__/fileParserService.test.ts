@@ -1,6 +1,5 @@
-import { FileParserService } from '../fileParser';
-import { RepoFile } from '../../types/RepoFile';
-import { PackageInfo } from '../../types/PackageInfo';
+import { FileParserService } from '../fileParserService';
+import { RepoFile, PackageInfo } from '../../types';
 
 describe('FileParserService', () => {
   let fileParserService: FileParserService;

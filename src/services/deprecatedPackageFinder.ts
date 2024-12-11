@@ -1,11 +1,17 @@
-import { UrlInfo } from '../types/UrlInfo';
+import { UrlInfo, RepoFile, PackageInfo } from '../types';
 import { FilesToLook } from '../lib/constants/endpoints';
-import { RepoFile } from '../types/RepoFile';
-import { FileParserService } from './fileParser';
-import { PackageInfo } from '../types/PackageInfo';
-import { VersionCheckerService } from './versionChecker';
+import { FileParserService } from './fileParserService';
+import { VersionCheckerService } from './versionCheckerService';
 import { PlatformApi } from '../lib/types';
 export class DeprecatedPackageFinder {
+  private fileParserService: FileParserService;
+  private versionCheckerService: VersionCheckerService;
+
+  constructor() {
+    this.fileParserService = new FileParserService();
+    this.versionCheckerService = new VersionCheckerService();
+  }
+
   async readFileFromRepository(platformApi: PlatformApi, urlInfo: UrlInfo) {
     const results = await Promise.allSettled(
       FilesToLook.map((file) =>
@@ -24,10 +30,9 @@ export class DeprecatedPackageFinder {
   }
 
   async parseFile(fileResponses: RepoFile[]) {
-    const fileParserService = new FileParserService();
     let packageList: PackageInfo[] = [];
     for (const file of fileResponses) {
-      const parsed = fileParserService.parseFileContent(file);
+      const parsed = this.fileParserService.parseFileContent(file);
       if (parsed) {
         packageList = [...packageList, ...parsed];
       }
@@ -35,10 +40,7 @@ export class DeprecatedPackageFinder {
     return packageList;
   }
 
-  async checkPackageVersions(packageList: PackageInfo[]) {
-    const versionCheckService = new VersionCheckerService();
-    const respOutdated =
-      await versionCheckService.getOutdatedPackages(packageList);
-    return respOutdated;
+  async getOutdatedPackages(packageList: PackageInfo[]) {
+    return await this.versionCheckerService.getOutdatedPackages(packageList);
   }
 }

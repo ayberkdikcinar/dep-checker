@@ -1,15 +1,16 @@
-import { RepoFile } from '../types/RepoFile';
 import {
   ComposerJSON,
   Dependencies,
   PackageInfo,
   PackageJSON,
-} from '../types/PackageInfo';
+  Registry,
+  RepoFile,
+} from '../types';
 import { sanitizeVersion } from '../lib/utils/sanitizeVersion';
-class FileParserService {
+
+export class FileParserService {
   parseFileContent(file: RepoFile): PackageInfo[] | null {
     const decodedContent = Buffer.from(file.content, 'base64').toString();
-
     switch (file.name) {
       case 'composer.json':
         return this.parseComposerJson(decodedContent);
@@ -37,7 +38,7 @@ class FileParserService {
   }
   private extractPackages(
     dependencies: Dependencies,
-    registry: string,
+    registry: Registry,
   ): PackageInfo[] {
     const allPackages = [...Object.entries(dependencies)];
 
@@ -48,5 +49,3 @@ class FileParserService {
     }));
   }
 }
-
-export { FileParserService };

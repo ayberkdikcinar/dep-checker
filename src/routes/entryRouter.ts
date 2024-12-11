@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
-import { createEntry } from './entryController';
+import { processEntry } from './entryController';
 import { validateRequest } from '../middlewares/validateRequest';
 const router = Router();
 
@@ -25,7 +25,7 @@ router.post(
       }),
   ],
   validateRequest,
-  createEntry,
+  processEntry,
 );
 
 export { router as entryRouter };

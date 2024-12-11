@@ -1,5 +1,5 @@
-import { VersionCheckerService } from '../versionChecker';
-import { PackageInfo, VersionCheckResult } from '../../types/PackageInfo';
+import { VersionCheckerService } from '../versionCheckerService';
+import { PackageInfo, VersionCheckResult } from '../../types';
 import { RegistryFactory } from '../../lib/apis/registry/registryFactory';
 import { BaseRegistry } from '../../lib/apis/registry/baseRegistry';
 import { versionCompare } from '../../lib/utils/versionCompare';
@@ -42,7 +42,7 @@ describe('VersionCheckerService', () => {
       );
     });
 
-    it('should return "unknown" if the registry is not found', async () => {
+    it('should return "null" if the registry is not found', async () => {
       const packageInfo: PackageInfo = {
         name: 'test-package',
         version: '1.0.0',
@@ -53,7 +53,7 @@ describe('VersionCheckerService', () => {
       const latestVersion =
         await versionCheckerService['getLatestVersion'](packageInfo);
 
-      expect(latestVersion).toBe('unknown');
+      expect(latestVersion).toBe(null);
     });
   });
 

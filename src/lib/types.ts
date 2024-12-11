@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { RepoFile } from '../types/RepoFile';
+import { RepoFile } from '../types';
 export interface PlatformApi {
   baseApiUrl: string;
   client: AxiosInstance;
@@ -13,8 +13,8 @@ export interface FileRequestAttrs {
   branch?: string;
 }
 
-export interface PackagistRelease {
-  version_normalized: string;
+export interface PackageRelease {
+  version_normalized?: string;
   version: string;
 }
 
@@ -24,8 +24,9 @@ export interface PackageResponse {
 }
 
 export interface Versions {
-  [version: string]: PackagistRelease;
+  [version: string]: PackageRelease;
 }
+
 export interface PackagistPackageResponse {
   package: PackageResponse;
 }

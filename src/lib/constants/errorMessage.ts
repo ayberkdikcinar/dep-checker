@@ -5,7 +5,8 @@ export const ErrorMessage = {
     'Invalid repository URL format. Expected format: [https://example.com/user/repo]',
   INVALID_PLATFORM:
     'Invalid platform. Supported Platforms: [github.com, gitlab.com]',
-  TARGET_FILE_NOT_FOUND:
-    'Neither composer.json nor package.json was found in the repository.',
+  TARGET_NOT_FOUND: 'Target files or repository not found.',
   INTERNAL_SERVER_ERROR: 'Internal server error',
+  ENTRY_EXISTS_DB:
+    'Repository Entry exists in the collection. No job scheduling will occur.',
 };

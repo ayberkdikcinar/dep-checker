@@ -1,5 +1,5 @@
 import { extractInfoFromUrl } from '../extractUrl';
-import { UrlInfo } from '../../../types/UrlInfo';
+import { UrlInfo } from '../../../types';
 import { versionCompare } from '../versionCompare';
 import { sanitizeVersion } from '../sanitizeVersion';
 

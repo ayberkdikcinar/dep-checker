@@ -4,14 +4,16 @@ import {
   DetailedVersionCheckResult,
   PackageInfo,
   VersionCheckResult,
-} from '../types/PackageInfo';
+} from '../types';
 
 class VersionCheckerService {
-  private async getLatestVersion(packageInfo: PackageInfo): Promise<string> {
+  private async getLatestVersion(
+    packageInfo: PackageInfo,
+  ): Promise<string | null> {
     const { name, registry } = packageInfo;
     const targetRegistry = RegistryFactory.getRegistry(registry);
     if (!targetRegistry) {
-      return 'unknown';
+      return null;
     }
     return await targetRegistry.getLatestPackageRelease(name);
   }
@@ -21,8 +23,8 @@ class VersionCheckerService {
   ): Promise<VersionCheckResult> {
     const { version } = packageInfo;
     const latestVersion = await this.getLatestVersion(packageInfo);
-    if (latestVersion === 'unknown') {
-      return { latestVersion, upToDate: false };
+    if (!latestVersion) {
+      return { latestVersion: 'unknown', upToDate: false };
     }
     return {
       latestVersion,

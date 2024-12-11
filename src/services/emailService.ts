@@ -1,10 +1,11 @@
-import nodemailer from 'nodemailer';
-import { DetailedVersionCheckResult } from '../types/PackageInfo';
-
+import nodemailer, { Transporter } from 'nodemailer';
+import { DetailedVersionCheckResult } from '../types';
+import { logger } from '../lib/config/logger';
 export class EmailService {
-  private transporter;
+  private static instance: EmailService;
+  private transporter: Transporter;
 
-  constructor() {
+  private constructor() {
     this.transporter = nodemailer.createTransport({
       port: 465,
       host: 'smtp.gmail.com',
@@ -15,6 +16,13 @@ export class EmailService {
     });
   }
 
+  public static getInstance(): EmailService {
+    if (!EmailService.instance) {
+      EmailService.instance = new EmailService();
+    }
+    return EmailService.instance;
+  }
+
   async sendEmail(
     to: string,
     subject: string,
@@ -22,15 +30,21 @@ export class EmailService {
     outdatedPackages: DetailedVersionCheckResult[],
   ) {
     const htmlBody = this.generateHtmlBody(repoName, outdatedPackages);
+    logger.info(`Sending email to ${to} with subject: ${subject}`);
+    try {
+      const mailOptions = {
+        from: process.env.EMAIL_ADDRESS,
+        to,
+        subject,
+        html: htmlBody,
+      };
 
-    const mailOptions = {
-      from: process.env.EMAIL_ADDRESS,
-      to,
-      subject,
-      html: htmlBody,
-    };
-
-    await this.transporter.sendMail(mailOptions);
+      await this.transporter.sendMail(mailOptions);
+    } catch (error) {
+      logger.error(
+        `Failed to send email to ${to} with subject: ${subject} Reason: ${error}`,
+      );
+    }
   }
 
   private generateHtmlBody(
