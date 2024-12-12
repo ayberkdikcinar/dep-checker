@@ -4,6 +4,7 @@ import expressWinston from 'express-winston';
 import { entryRouter } from './routes/entryRouter';
 import { logger } from './lib/config/logger';
 import { errorHandler } from './middlewares/errorHandler';
+import { setupSwagger } from './lib/config/swagger';
 
 const app = express();
 
@@ -22,7 +23,10 @@ app.use(entryRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Healthy!');
+  return;
 });
+
+setupSwagger(app);
 
 app.all('*', (req: Request, res: Response) => {
   throw new Error('Route not found');
