@@ -4,7 +4,9 @@ import { EntryPayload } from '../types';
 import { extractInfoFromUrl } from '../lib/utils/extractUrl';
 import { ErrorMessage } from '../lib/constants/errorMessage';
 import { EntryService } from '../services/entryService';
-import { scheduleEntryJob } from '../services/scheduler';
+import { scheduleJob } from '../queue/scheduler';
+import { Entry } from '../models/entry';
+import { repositoryEntryQueue } from '../lib/constants/queueConsts';
 async function processEntry(req: Request, res: Response, next: NextFunction) {
   try {
     const entryService = new EntryService();
@@ -24,7 +26,7 @@ async function processEntry(req: Request, res: Response, next: NextFunction) {
 
     const newEntry = await entryService.createEntry(newEntryPayload);
     if (newEntry) {
-      await scheduleEntryJob(newEntry, new Date());
+      await scheduleJob<Entry>(repositoryEntryQueue, newEntry, true);
     }
     const outdatedPackages =
       await entryService.findOutdatedPackages(newEntryPayload);

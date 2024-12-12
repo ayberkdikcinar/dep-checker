@@ -12,11 +12,11 @@ export interface EntryPayload {
 export interface JobLog {
   id: JobId;
   queueName: string;
-  message?: string;
-  data: unknown;
+  error?: string;
+  data?: unknown;
   status: JobStatus;
-  processedDate: number;
-  finishedDate: number;
+  processedAt: number;
+  finishedAt: number;
 }
 
 export interface PackageInfo {
@@ -48,13 +48,16 @@ export interface DetailedVersionCheckResult extends VersionCheckResult {
   version: string;
 }
 
-export interface RepoFile {
-  name: string;
-  content: string;
-}
-
 export interface UrlInfo {
   platform: string;
   owner: string;
   repo: string;
+}
+
+export interface EmailNotificationPayload {
+  to: string;
+  subject: string;
+  repoName: string;
+  info?: string;
+  outdatedPackages: DetailedVersionCheckResult[];
 }

@@ -1,5 +1,5 @@
 import nodemailer, { Transporter } from 'nodemailer';
-import { DetailedVersionCheckResult } from '../types';
+import { DetailedVersionCheckResult, EmailNotificationPayload } from '../types';
 import { logger } from '../lib/config/logger';
 export class EmailService {
   private static instance: EmailService;
@@ -23,14 +23,9 @@ export class EmailService {
     return EmailService.instance;
   }
 
-  async sendEmail(
-    to: string,
-    subject: string,
-    repoName: string,
-    outdatedPackages: DetailedVersionCheckResult[],
-  ) {
-    const htmlBody = this.generateHtmlBody(repoName, outdatedPackages);
-    logger.info(`Sending email to ${to} with subject: ${subject}`);
+  async sendEmail(payload: EmailNotificationPayload) {
+    const { outdatedPackages, repoName, subject, to, info } = payload;
+    const htmlBody = this.generateHtmlBody(repoName, outdatedPackages, info);
     try {
       const mailOptions = {
         from: process.env.EMAIL_ADDRESS,
@@ -50,15 +45,30 @@ export class EmailService {
   private generateHtmlBody(
     repoName: string,
     outdatedPackages: DetailedVersionCheckResult[],
+    info?: string,
   ): string {
+    if (outdatedPackages.length === 0 && !info) {
+      return `
+        <h3>Outdated Packages for ${repoName}</h3>
+        <p>Good news! There are no outdated packages in the repository.</p>
+      `;
+    }
+
+    if (outdatedPackages.length === 0 && info) {
+      return `
+        <h3>Outdated Packages for ${repoName}</h3>
+      <p>${info}</p>
+      `;
+    }
+
     const rows = outdatedPackages
       .map(
         (pkg) => `
-      <tr>
-        <td>${pkg.name}</td>
-        <td>${pkg.version}</td>
-        <td>${pkg.latestVersion}</td>
-      </tr>`,
+    <tr>
+      <td>${pkg.name}</td>
+      <td>${pkg.version}</td>
+      <td>${pkg.latestVersion}</td>
+    </tr>`,
       )
       .join('');
 

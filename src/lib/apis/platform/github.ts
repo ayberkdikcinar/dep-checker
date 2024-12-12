@@ -1,7 +1,6 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { BaseUrl } from '../../constants/endpoints';
-import { RepoFile } from '../../../types';
-import { FileRequestAttrs, PlatformApi } from '../../types';
+import { RepoFile, FileRequestAttrs, PlatformApi } from '../../types';
 import { NotFoundError } from '../../../errors';
 
 export class GitHubPlatformApi implements PlatformApi {

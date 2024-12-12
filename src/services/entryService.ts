@@ -1,5 +1,5 @@
 import { ErrorMessage } from '../lib/constants/errorMessage';
-import { EntryCollection } from '../collections/entryCollection';
+import { EntryCollection } from '../data/collections/entryCollection';
 import { Entry } from '../models/entry';
 import { genId } from '../lib/utils/genId';
 import { DetailedVersionCheckResult, EntryPayload } from '../types';

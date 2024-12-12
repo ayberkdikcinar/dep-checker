@@ -1,11 +1,14 @@
 import { AxiosInstance } from 'axios';
-import { RepoFile } from '../types';
 export interface PlatformApi {
   baseApiUrl: string;
   client: AxiosInstance;
   fetchFileContent: (attrs: FileRequestAttrs) => Promise<RepoFile>;
 }
 
+export interface RepoFile {
+  name: string;
+  content: string;
+}
 export interface FileRequestAttrs {
   owner: string;
   repo: string;
