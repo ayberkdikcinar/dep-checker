@@ -12,7 +12,10 @@ export class DeprecatedPackageFinder {
     this.versionCheckerService = new VersionCheckerService();
   }
 
-  async readFileFromRepository(platformApi: PlatformApi, urlInfo: UrlInfo) {
+  async readFileFromRepository(
+    platformApi: PlatformApi,
+    urlInfo: UrlInfo,
+  ): Promise<RepoFile[]> {
     const results = await Promise.allSettled(
       FilesToLook.map((file) =>
         platformApi.fetchFileContent({
@@ -29,7 +32,7 @@ export class DeprecatedPackageFinder {
     return fileResponses;
   }
 
-  async parseFile(fileResponses: RepoFile[]) {
+  async parseFile(fileResponses: RepoFile[]): Promise<PackageInfo[]> {
     let packageList: PackageInfo[] = [];
     for (const file of fileResponses) {
       const parsed = this.fileParserService.parseFileContent(file);

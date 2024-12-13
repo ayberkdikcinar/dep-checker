@@ -30,6 +30,7 @@ export async function processEntryJob(job: Job<Entry>) {
 
     let outdatedPackages: DetailedVersionCheckResult[] = [];
     let infoMsg = '';
+
     if (!files.length) {
       logger.warn(ErrorMessage.TARGET_NOT_FOUND);
       infoMsg = ErrorMessage.TARGET_NOT_FOUND;
@@ -56,6 +57,6 @@ export async function processEntryJob(job: Job<Entry>) {
 
     await scheduleJob<Entry>(repositoryEntryQueue, job.data, true);
   } catch (error) {
-    logger.error(`Error while processing entry job: ${error}`);
+    logger.error(`Error while processing job: ${JSON.stringify(error)}`);
   }
 }
