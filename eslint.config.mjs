@@ -20,7 +20,7 @@ export default [
           allowTemplateLiterals: true,
         },
       ],
-      'prettier/prettier': ['error', { singleQuote: true }],
+      'prettier/prettier': ['error', { singleQuote: true, endOfLine: 'auto' }],
     },
   },
   eslintPluginPrettierRecommended,

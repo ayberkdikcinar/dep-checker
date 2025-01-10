@@ -1,5 +1,5 @@
-import { BaseUrl } from '../../constants/endpoints';
-import { NpmPackageResponse } from '../../types';
+import { BaseUrl } from '../../../constants/endpoints';
+import { NpmPackageResponse } from '../../../types';
 import { BaseRegistry } from './baseRegistry';
 
 export class NpmRegistry extends BaseRegistry {

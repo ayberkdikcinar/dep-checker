@@ -4,9 +4,9 @@ import {
   PackageInfo,
   PackageJSON,
   Registry,
+  RepoFile,
 } from '../types';
-import { RepoFile } from '../lib/types';
-import { sanitizeVersion } from '../lib/utils/sanitizeVersion';
+import { sanitizeVersion } from '../utils/sanitizeVersion';
 
 export class FileParserService {
   parseFileContent(file: RepoFile): PackageInfo[] | null {

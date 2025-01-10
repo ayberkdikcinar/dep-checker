@@ -1,11 +1,11 @@
-import { BaseUrl } from '../../constants/endpoints';
+import { BaseUrl } from '../../../constants/endpoints';
 import {
   PackageRelease,
   PackagistPackageResponse,
   Versions,
-} from '../../types';
+} from '../../../types';
 import { BaseRegistry } from './baseRegistry';
-import { versionCompare } from '../../utils/versionCompare';
+import { versionCompare } from '../../../utils/versionCompare';
 export class PackagistRegistry extends BaseRegistry {
   private developmentalTags: string[] = [
     'alpha',

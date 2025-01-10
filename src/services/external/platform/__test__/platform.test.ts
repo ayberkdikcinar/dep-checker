@@ -2,8 +2,8 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { GitHubPlatformApi } from '../github';
 import { GitLabPlatformApi } from '../gitlab';
-import { RepoFile, FileRequestAttrs } from '../../../types';
-import { NotFoundError } from '../../../../errors';
+import { RepoFile, FileRequestAttrs } from '../../../lib/types';
+import { NotFoundError } from '../../../errors';
 
 describe('PlatformTests', () => {
   let mockAxios: MockAdapter;

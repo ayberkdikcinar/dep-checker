@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
-import { BaseUrl } from '../../constants/endpoints';
-import { RepoFile, FileRequestAttrs, PlatformApi } from '../../types';
+import { BaseUrl } from '../../../constants/endpoints';
+import { RepoFile, FileRequestAttrs, PlatformApi } from '../../../types';
 import { AxiosError } from 'axios';
 
 export class GitLabPlatformApi implements PlatformApi {

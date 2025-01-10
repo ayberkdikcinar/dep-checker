@@ -1,6 +1,6 @@
 import { GitHubPlatformApi } from './github';
 import { GitLabPlatformApi } from './gitlab';
-import { PlatformApi } from '../../types';
+import { PlatformApi } from '../../../types';
 
 export class PlatformFactory {
   static getPlatformApi(platform: string, token?: string): PlatformApi | null {

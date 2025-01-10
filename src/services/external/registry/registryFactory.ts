@@ -1,4 +1,3 @@
-import { Registry } from '../../../types';
 import { BaseRegistry } from './baseRegistry';
 import { NpmRegistry } from './npm';
 import { PackagistRegistry } from './packagist';

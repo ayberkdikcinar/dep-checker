@@ -1,7 +1,7 @@
 import { Job } from 'bull';
 import { EmailService } from '../../services/emailService';
 import { EmailNotificationPayload } from '../../types';
-import { logger } from '../../lib/config/logger';
+import { logger } from '../../config/logger';
 
 export async function processMailJob(job: Job<EmailNotificationPayload>) {
   try {

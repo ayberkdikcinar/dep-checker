@@ -1,6 +1,6 @@
 import { addHours, addMinutes } from 'date-fns';
 import { differenceInMilliseconds } from 'date-fns';
-import { ScheduleTimeIntervalHour } from '../lib/constants/scheduleInterval';
+import { ScheduleTimeIntervalHour } from '../constants/scheduleInterval';
 import { JobQueueService } from '../services/jobQueueService';
 
 export async function scheduleJob<T>(

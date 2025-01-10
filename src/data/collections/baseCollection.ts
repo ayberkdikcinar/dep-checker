@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { logger } from '../../lib/config/logger';
+import { logger } from '../../config/logger';
 import { DataModel } from '../../models/entry';
 
 interface FileError extends Error {

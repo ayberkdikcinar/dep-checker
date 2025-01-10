@@ -1,7 +1,7 @@
-import { logger } from '../../lib/config/logger';
+import { logger } from '../../config/logger';
 import { BaseCollection } from './baseCollection';
 import { Entry } from '../../models/entry';
-import { ErrorMessage } from '../../lib/constants/errorMessage';
+import { ErrorMessage } from '../../constants/errorMessage';
 
 export class EntryCollection extends BaseCollection<Entry> {
   private static instance: EntryCollection;

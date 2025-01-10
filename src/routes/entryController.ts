@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import { BadRequestError } from '../errors';
 import { EntryPayload } from '../types';
-import { extractInfoFromUrl } from '../lib/utils/extractUrl';
-import { ErrorMessage } from '../lib/constants/errorMessage';
+import { extractInfoFromUrl } from '../utils/extractUrl';
+import { ErrorMessage } from '../constants/errorMessage';
 import { EntryService } from '../services/entryService';
 import { scheduleJob } from '../queue/scheduler';
 import { Entry } from '../models/entry';
-import { repositoryEntryQueue } from '../lib/constants/queueConsts';
+import { repositoryEntryQueue } from '../constants/queueConsts';
 async function processEntry(req: Request, res: Response, next: NextFunction) {
   try {
     const entryService = new EntryService();

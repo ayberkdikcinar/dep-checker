@@ -1,5 +1,5 @@
-import { RegistryFactory } from '../lib/apis/registry/registryFactory';
-import { versionCompare } from '../lib/utils/versionCompare';
+import { RegistryFactory } from './external/registry/registryFactory';
+import { versionCompare } from '../utils/versionCompare';
 import {
   DetailedVersionCheckResult,
   PackageInfo,

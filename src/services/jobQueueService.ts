@@ -2,10 +2,10 @@ import fs from 'fs';
 import Redis from 'ioredis';
 import jsonfile from 'jsonfile';
 import Queue, { JobStatus, QueueOptions } from 'bull';
-import { logger } from '../lib/config/logger';
+import { logger } from '../config/logger';
 import { JobLog } from '../types';
-import { resolvePath } from '../lib/utils/resolvePath';
-import { QueueMessage } from '../lib/constants/queueConsts';
+import { resolvePath } from '../utils/resolvePath';
+import { QueueMessage } from '../constants/queueConsts';
 
 export class JobQueueService {
   private static instance: JobQueueService;

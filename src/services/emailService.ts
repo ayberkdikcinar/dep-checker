@@ -1,6 +1,6 @@
 import nodemailer, { Transporter } from 'nodemailer';
 import { DetailedVersionCheckResult, EmailNotificationPayload } from '../types';
-import { logger } from '../lib/config/logger';
+import { logger } from '../config/logger';
 export class EmailService {
   private static instance: EmailService;
   private transporter: Transporter;

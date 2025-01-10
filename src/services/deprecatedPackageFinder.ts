@@ -1,8 +1,8 @@
 import { UrlInfo, PackageInfo } from '../types';
-import { FilesToLook } from '../lib/constants/filesToLook';
+import { FilesToLook } from '../constants/filesToLook';
 import { FileParserService } from './fileParserService';
 import { VersionCheckerService } from './versionCheckerService';
-import { PlatformApi, RepoFile } from '../lib/types';
+import { PlatformApi, RepoFile } from '../types';
 export class DeprecatedPackageFinder {
   private fileParserService: FileParserService;
   private versionCheckerService: VersionCheckerService;

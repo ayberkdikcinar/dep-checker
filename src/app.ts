@@ -2,9 +2,9 @@ import express, { Request, Response } from 'express';
 import { json } from 'body-parser';
 import expressWinston from 'express-winston';
 import { entryRouter } from './routes/entryRouter';
-import { logger } from './lib/config/logger';
+import { logger } from './config/logger';
 import { errorHandler } from './middlewares/errorHandler';
-import { setupSwagger } from './lib/config/swagger';
+import { setupSwagger } from './config/swagger';
 
 const app = express();
 

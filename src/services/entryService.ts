@@ -1,11 +1,11 @@
-import { ErrorMessage } from '../lib/constants/errorMessage';
+import { ErrorMessage } from '../constants/errorMessage';
 import { EntryCollection } from '../data/collections/entryCollection';
 import { Entry } from '../models/entry';
-import { genId } from '../lib/utils/genId';
+import { genId } from '../utils/genId';
 import { DetailedVersionCheckResult, EntryPayload } from '../types';
 import { NotFoundError } from '../errors';
 import { DeprecatedPackageFinder } from './deprecatedPackageFinder';
-import { PlatformFactory } from '../lib/apis/platform/platformFactory';
+import { PlatformFactory } from './external/platform/platformFactory';
 
 export class EntryService {
   private deprecatedPackageFinder: DeprecatedPackageFinder;

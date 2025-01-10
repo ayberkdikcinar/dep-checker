@@ -1,18 +1,15 @@
 import { Entry } from '../../models/entry';
 import { Job } from 'bull';
 import { scheduleJob } from '../scheduler';
-import { PlatformFactory } from '../../lib/apis/platform/platformFactory';
+import { PlatformFactory } from '../../services/external/platform/platformFactory';
 import { DeprecatedPackageFinder } from '../../services/deprecatedPackageFinder';
-import { logger } from '../../lib/config/logger';
+import { logger } from '../../config/logger';
 import {
   DetailedVersionCheckResult,
   EmailNotificationPayload,
 } from '../../types';
-import { ErrorMessage } from '../../lib/constants/errorMessage';
-import {
-  mailQueue,
-  repositoryEntryQueue,
-} from '../../lib/constants/queueConsts';
+import { ErrorMessage } from '../../constants/errorMessage';
+import { mailQueue, repositoryEntryQueue } from '../../constants/queueConsts';
 
 export async function processEntryJob(job: Job<Entry>) {
   try {

@@ -1,8 +1,8 @@
 import { JobQueueService } from '../services/jobQueueService';
 import { processEntryJob } from './processors/entryProcessor';
 import { processMailJob } from './processors/mailProcessor';
-import { logger } from '../lib/config/logger';
-import { mailQueue, repositoryEntryQueue } from '../lib/constants/queueConsts';
+import { logger } from '../config/logger';
+import { mailQueue, repositoryEntryQueue } from '../constants/queueConsts';
 
 export const initializeQueues = (queueService: JobQueueService) => {
   queueService.createQueue(repositoryEntryQueue, processEntryJob);

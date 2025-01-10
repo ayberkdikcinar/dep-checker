@@ -1,7 +1,7 @@
 import { VersionCheckerService } from '../versionCheckerService';
 import { PackageInfo, VersionCheckResult } from '../../types';
-import { RegistryFactory } from '../../lib/apis/registry/registryFactory';
-import { BaseRegistry } from '../../lib/apis/registry/baseRegistry';
+import { RegistryFactory } from '../../apis/registry/registryFactory';
+import { BaseRegistry } from '../../apis/registry/baseRegistry';
 import { versionCompare } from '../../lib/utils/versionCompare';
 
 jest.mock('../../lib/apis/registry/registryFactory');
