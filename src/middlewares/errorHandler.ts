@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { CustomError } from '../errors/customError';
+import { CustomHTTPError } from '../errors/http';
 import { logger } from '../config/logger';
 
 export const errorHandler = (
@@ -8,7 +8,7 @@ export const errorHandler = (
   res: Response,
   next: NextFunction,
 ) => {
-  if (err instanceof CustomError) {
+  if (err instanceof CustomHTTPError) {
     logger.warn(err.serializeErrors());
     res.status(err.statusCode).json({
       errors: err.serializeErrors(),

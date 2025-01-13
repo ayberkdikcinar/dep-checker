@@ -1,9 +1,8 @@
 import { app } from './app';
 import { logger } from './config/logger';
-import { initializeQueues } from './queue/initialize';
+import { setupQueues } from './queues/setup';
 import dotenv from 'dotenv';
-import { JobQueueService } from './services/jobQueueService';
-import { emptyJSONFile } from './utils/emptyJSONFile';
+
 dotenv.config();
 
 const start = async () => {
@@ -15,12 +14,7 @@ const start = async () => {
   if (!process.env.EMAIL_PASSWORD)
     throw new Error('EMAIL_PASSWORD must be defined.');
   try {
-    /*   const queueService = JobQueueService.getInstance();
-    await queueService.checkRedisConnection();
-    initializeQueues(queueService);
-  
-    await queueService.clearAllQueues(); */
-    /*     await emptyJSONFile('src/data/entries.json'); */
+    setupQueues();
   } catch (err) {
     logger.error(err);
     process.exit(1);

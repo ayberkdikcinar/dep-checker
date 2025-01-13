@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { json } from 'body-parser';
 import expressWinston from 'express-winston';
-import { entryRouter } from './routes/entryRouter';
+import { repositorySubscriptionRouter } from './routes/repositorySubscriptionRouter';
 import { logger } from './config/logger';
 import { errorHandler } from './middlewares/errorHandler';
 import { setupSwagger } from './config/swagger';
@@ -19,9 +19,9 @@ app.use(
 
 app.use(json());
 
-app.use(entryRouter);
+app.use(repositorySubscriptionRouter);
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/health', (req: Request, res: Response) => {
   res.send('Healthy!');
   return;
 });

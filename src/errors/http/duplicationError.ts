@@ -1,6 +1,6 @@
-import { CustomError } from './customError';
+import { CustomHTTPError } from './customHTTPError';
 
-export class DuplicationError extends CustomError {
+export class DuplicationError extends CustomHTTPError {
   statusCode = 409;
 
   constructor(public message: string) {

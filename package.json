@@ -31,6 +31,7 @@
     "typescript-eslint": "^8.17.0"
   },
   "dependencies": {
+    "@prisma/client": "^6.2.1",
     "@types/express": "^5.0.0",
     "@types/jsonfile": "^6.1.4",
     "@types/nodemailer": "^6.4.17",
@@ -47,6 +48,7 @@
     "ioredis": "^5.4.1",
     "jsonfile": "^6.1.0",
     "node-mailer": "^0.1.1",
+    "prisma": "^6.2.1",
     "sqlite3": "^5.1.7",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",

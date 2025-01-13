@@ -1,5 +1,5 @@
-import { extractInfoFromUrl } from '../extractUrl';
-import { UrlInfo } from '../../../types';
+import { parseRepositoryUrl } from '../parseRepositoryUrl';
+import { UrlInfo } from '../../types';
 import { versionCompare } from '../versionCompare';
 import { sanitizeVersion } from '../sanitizeVersion';
 
@@ -11,17 +11,17 @@ describe('extractInfoFromUrl', () => {
       owner: 'user',
       repo: 'repo',
     };
-    expect(extractInfoFromUrl(url)).toEqual(expected);
+    expect(parseRepositoryUrl(url)).toEqual(expected);
   });
 
   it('should return null for invalid URL that does not have owner and repo', () => {
     const url = 'https://github.com';
-    expect(extractInfoFromUrl(url)).toBeNull();
+    expect(parseRepositoryUrl(url)).toBeNull();
   });
 
   it('should return null for invalid URL with multiple consecutive slashes', () => {
     const url = 'https://github.com//user/repo';
-    expect(extractInfoFromUrl(url)).toBeNull();
+    expect(parseRepositoryUrl(url)).toBeNull();
   });
 
   it('should handle URL with trailing slash', () => {
@@ -31,17 +31,17 @@ describe('extractInfoFromUrl', () => {
       owner: 'user',
       repo: 'repo',
     };
-    expect(extractInfoFromUrl(url)).toEqual(expected);
+    expect(parseRepositoryUrl(url)).toEqual(expected);
   });
 
   it('should return null for URL without https:// or http://', () => {
     const url = 'github.com/user/repo';
-    expect(extractInfoFromUrl(url)).toBeNull();
+    expect(parseRepositoryUrl(url)).toBeNull();
   });
 
   it('should return null for extra subdirectories in URLs', () => {
     const url = 'https://github.com/user/repo/s/c';
-    expect(extractInfoFromUrl(url)).toBeNull();
+    expect(parseRepositoryUrl(url)).toBeNull();
   });
 });
 

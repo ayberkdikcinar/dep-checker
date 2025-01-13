@@ -1,4 +1,4 @@
-import { JobQueueService } from '../jobQueueService';
+import { JobQueueService } from '../jobQueueManagerService';
 import { QueueMessage } from '../../lib/constants/queueConsts';
 
 jest.mock('bull', () => {

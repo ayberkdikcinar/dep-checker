@@ -1,7 +1,6 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { BaseUrl } from '../../../constants/endpoints';
 import { RepoFile, FileRequestAttrs, PlatformApi } from '../../../types';
-import { NotFoundError } from '../../../errors';
 
 export class GitHubPlatformApi implements PlatformApi {
   readonly baseApiUrl: string = BaseUrl.githubApi;
@@ -37,9 +36,7 @@ export class GitHubPlatformApi implements PlatformApi {
       return repoFile;
     } catch (error) {
       const axiosError = error as AxiosError;
-      throw new NotFoundError(
-        `Error fetching repository file:${axiosError.message}`,
-      );
+      throw new Error(`Error fetching repository file:${axiosError.message}`);
     }
   }
 }

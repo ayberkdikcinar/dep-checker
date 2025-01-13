@@ -1,6 +1,8 @@
 import nodemailer, { Transporter } from 'nodemailer';
 import { DetailedVersionCheckResult, EmailNotificationPayload } from '../types';
 import { logger } from '../config/logger';
+import { ErrorMessage, SuccessMessage } from '../constants/messages';
+
 export class EmailService {
   private static instance: EmailService;
   private transporter: Transporter;
@@ -24,8 +26,8 @@ export class EmailService {
   }
 
   async sendEmail(payload: EmailNotificationPayload) {
-    const { outdatedPackages, repoName, subject, to, info } = payload;
-    const htmlBody = this.generateHtmlBody(repoName, outdatedPackages, info);
+    const { body, repoName, subject, to, info } = payload;
+    const htmlBody = this.generateHtmlBody(repoName, body, info);
     try {
       const mailOptions = {
         from: process.env.EMAIL_ADDRESS,
@@ -35,10 +37,21 @@ export class EmailService {
       };
 
       await this.transporter.sendMail(mailOptions);
+      logger.info(SuccessMessage.EmailSent(to));
     } catch (error) {
-      logger.error(
-        `Failed to send email to ${to} with subject: ${subject} Reason: ${error}`,
-      );
+      const smtpError = error as { code?: string };
+
+      if (smtpError.code === 'EAUTH') {
+        logger.error(
+          'Authentication failed. Please check your SMTP credentials.',
+        );
+      }
+      if (smtpError.code === 'ECONNREFUSED') {
+        logger.error(
+          'Failed to connect to SMTP server. Ensure the host and port are correct.',
+        );
+      }
+      logger.error(ErrorMessage.EmailCouldNotBeSent(to, JSON.stringify(error)));
     }
   }
 

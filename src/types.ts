@@ -1,4 +1,5 @@
 import { JobId, JobStatus } from 'bull';
+import { AxiosInstance } from 'axios';
 
 export type Registry = 'npm' | 'packagist';
 
@@ -59,10 +60,9 @@ export interface EmailNotificationPayload {
   subject: string;
   repoName: string;
   info?: string;
-  outdatedPackages: DetailedVersionCheckResult[];
+  body: DetailedVersionCheckResult[];
 }
 
-import { AxiosInstance } from 'axios';
 export interface PlatformApi {
   baseApiUrl: string;
   client: AxiosInstance;
@@ -100,4 +100,30 @@ export interface PackagistPackageResponse {
 
 export interface NpmPackageResponse extends PackageResponse {
   ['dist-tags']: { [key: string]: string };
+}
+
+export interface RepositorySubscriptionPayload {
+  emails: string[];
+  platform: string;
+  name: string;
+  owner: string;
+}
+
+export interface NotificationJob {
+  id: number;
+  email: string;
+  repositorySubscriptionId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  status: 'PENDING' | 'FAILED' | 'COMPLETED';
+}
+
+export interface RepositorySubscription {
+  id: number;
+  platform: string;
+  name: string;
+  owner: string;
+  createdAt: Date;
+  updatedAt: Date;
+  notificationJobs: NotificationJob[];
 }

@@ -5,15 +5,16 @@ import {
   PackageInfo,
   VersionCheckResult,
 } from '../types';
+import { RegistryError } from '../errors/domain/registryError';
 
-class VersionCheckerService {
+export class VersionCheckerService {
   private async getLatestVersion(
     packageInfo: PackageInfo,
   ): Promise<string | null> {
     const { name, registry } = packageInfo;
     const targetRegistry = RegistryFactory.getRegistry(registry);
     if (!targetRegistry) {
-      return null;
+      throw new RegistryError(`Registry ${registry} is not supported.`);
     }
     return await targetRegistry.getLatestPackageRelease(name);
   }
@@ -47,5 +48,3 @@ class VersionCheckerService {
     );
   }
 }
-
-export { VersionCheckerService };

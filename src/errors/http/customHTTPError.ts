@@ -1,4 +1,4 @@
-export abstract class CustomError extends Error {
+export abstract class CustomHTTPError extends Error {
   abstract statusCode: number;
   constructor(readonly message: string) {
     super(message);

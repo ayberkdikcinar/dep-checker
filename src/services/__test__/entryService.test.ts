@@ -1,4 +1,4 @@
-import { EntryService } from '../entryService';
+import { EntryService } from '../repositorySubscriptionService';
 import { EntryCollection } from '../../data/collections/entryCollection';
 import { EntryPayload } from '../../types';
 import { Entry } from '../../models/entry';
