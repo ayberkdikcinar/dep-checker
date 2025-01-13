@@ -56,6 +56,7 @@ export interface UrlInfo {
 }
 
 export interface EmailNotificationPayload {
+  id: number;
   to: string;
   subject: string;
   repoName: string;
@@ -125,5 +126,6 @@ export interface RepositorySubscription {
   owner: string;
   createdAt: Date;
   updatedAt: Date;
+  slug: string;
   notificationJobs: NotificationJob[];
 }

@@ -27,6 +27,7 @@ export async function processRepositorySubscriptionJob(
     const emailPayloads: EmailNotificationPayload[] = notificationJobs.map(
       (notificationJob) => ({
         info: '',
+        id,
         body: packages,
         repoName: `${platform}/${owner}/${name}`,
         subject: appConfig.mailSubject,
@@ -34,7 +35,7 @@ export async function processRepositorySubscriptionJob(
       }),
     );
 
-    await Promise.all(
+    await Promise.allSettled(
       emailPayloads.map((payload) =>
         scheduleJob<EmailNotificationPayload>(mailQueue, payload),
       ),

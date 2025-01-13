@@ -3,5 +3,5 @@ Content-Type: application/json
 
 {
     "repositoryUrl": "https://github.com/ayberkdikcinar/bot-v",
-    "emails": ["ayberkdikcinar@gmail.com","ayberktestgcp@gmail.com"]
+    "emails": ["ayberkdikcinar@gmail.com","ayberktestgcp@gmail.com","ayberktestaws@gmail.com"]
 }

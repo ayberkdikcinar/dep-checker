@@ -22,6 +22,7 @@ model NotificationJob {
     status                   NotificationStatus     @default(PENDING)
     repositorySubscription   RepositorySubscription @relation(fields: [repositorySubscriptionId], references: [id])
 
+    @@unique([email, repositorySubscriptionId])
     @@map("notification_jobs")
 }
 
@@ -33,6 +34,7 @@ model RepositorySubscription {
     createdAt        DateTime          @default(now())
     updatedAt        DateTime          @updatedAt
     notificationJobs NotificationJob[]
+    slug             String            @unique
 
     @@map("repository_subscriptions")
 }

@@ -1,8 +1,7 @@
-import { addHours, addMinutes } from 'date-fns';
+import { addMinutes } from 'date-fns';
 import { differenceInMilliseconds } from 'date-fns';
 import { JobQueueManagerService } from '../services/jobQueueManagerService';
-
-const ScheduleTimeIntervalHour = 24;
+import { appConfig } from '../config/appConfig';
 
 export async function scheduleJob<T>(
   queueName: string,
@@ -13,7 +12,10 @@ export async function scheduleJob<T>(
 
   if (delayed) {
     const currentDate = new Date();
-    const sendTime = addMinutes(currentDate, 1);
+    const sendTime = addMinutes(
+      currentDate,
+      appConfig.scheduleTimeIntervalInMinutes,
+    );
     const delay = differenceInMilliseconds(sendTime, currentDate);
     await queueServiceInstance.addJobToQueueWithDelay<T>(
       queueName,
