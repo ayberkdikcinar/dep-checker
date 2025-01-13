@@ -1,0 +1,38 @@
+datasource db {
+    provider = "sqlite"
+    url      = "file:../dev.db"
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+enum NotificationStatus {
+    PENDING
+    FAILED
+    COMPLETED
+}
+
+model NotificationJob {
+    id                       Int                    @id @default(autoincrement())
+    email                    String
+    repositorySubscriptionId Int
+    createdAt                DateTime               @default(now())
+    updatedAt                DateTime               @updatedAt
+    status                   NotificationStatus     @default(PENDING)
+    repositorySubscription   RepositorySubscription @relation(fields: [repositorySubscriptionId], references: [id])
+
+    @@map("notification_jobs")
+}
+
+model RepositorySubscription {
+    id               Int               @id @default(autoincrement())
+    platform         String
+    name             String
+    owner            String
+    createdAt        DateTime          @default(now())
+    updatedAt        DateTime          @updatedAt
+    notificationJobs NotificationJob[]
+
+    @@map("repository_subscriptions")
+}
